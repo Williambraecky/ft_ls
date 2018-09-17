@@ -6,12 +6,12 @@
 #    By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/17 11:30:33 by wbraeckm          #+#    #+#              #
-#    Updated: 2018/09/17 11:50:31 by wbraeckm         ###   ########.fr        #
+#    Updated: 2018/09/17 14:28:38 by wbraeckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
-CC = GCC
+CC = gcc
 FLAGS = -O3 -Wall -Wextra -Werror
 INCLUDES = includes/
 LIBFTFOLDER = libft
@@ -31,7 +31,7 @@ ccgreen = "\033[0;92m"
 ccmagenta = "\033[0;96m"
 ccreset = "\033[0;0m"
 
-all: LIB $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(OBJFOLDER)/%.o:$(SRCSFOLDER)/%.c
 	@printf $(ccgreen)
@@ -41,7 +41,7 @@ $(OBJFOLDER)/%.o:$(SRCSFOLDER)/%.c
 $(OBJSUBS):
 	@mkdir $@
 
-LIB:
+$(LIBFT):
 	@make -C $(LIBFTFOLDER)
 
 $(NAME): $(OBJSUBS) $(OBJ)

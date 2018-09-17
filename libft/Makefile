@@ -6,7 +6,7 @@
 #    By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/12 08:11:26 by wbraeckm          #+#    #+#              #
-#    Updated: 2018/09/17 11:29:25 by wbraeckm         ###   ########.fr        #
+#    Updated: 2018/09/17 14:23:47 by wbraeckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,6 @@ $(OBJSUBS):
 
 $(NAME): $(OBJSUBS) $(OBJ)
 	@printf $(ccmagenta)
-	@make compile
-
-compile:
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
