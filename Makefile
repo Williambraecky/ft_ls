@@ -6,7 +6,7 @@
 #    By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/17 11:30:33 by wbraeckm          #+#    #+#              #
-#    Updated: 2018/09/17 14:28:38 by wbraeckm         ###   ########.fr        #
+#    Updated: 2018/09/17 15:42:12 by wbraeckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ ccgreen = "\033[0;92m"
 ccmagenta = "\033[0;96m"
 ccreset = "\033[0;0m"
 
-all: $(LIBFT) $(NAME)
+all: LIB $(NAME)
 
 $(OBJFOLDER)/%.o:$(SRCSFOLDER)/%.c
 	@printf $(ccgreen)
@@ -41,7 +41,7 @@ $(OBJFOLDER)/%.o:$(SRCSFOLDER)/%.c
 $(OBJSUBS):
 	@mkdir $@
 
-$(LIBFT):
+LIB:
 	@make -C $(LIBFTFOLDER)
 
 $(NAME): $(OBJSUBS) $(OBJ)

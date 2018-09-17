@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/14 14:13:35 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/14 14:16:30 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/17 15:41:21 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ char	*ft_strformat(const char *format, ...)
 	ft_printf_flush(flags);
 	va_end(list[0]);
 	va_end(list[1]);
-	str = flags->str;
+	str = ft_strnew(flags->printed);
+	ft_strncpy(str, flags->str, flags->printed);
+	free(flags->str);
 	free(flags);
 	return (str);
 }

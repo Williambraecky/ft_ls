@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/17 14:19:42 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/17 15:26:31 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,7 @@ void		ft_toggle_option(t_ls *ls, size_t option);
 */
 
 char		*ft_permstr(t_stat stat);
+char		*ft_extract_time(time_t compared);
+int			ft_dircmp(t_dirent *a, t_dirent *b);
 
 #endif
