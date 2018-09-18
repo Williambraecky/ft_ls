@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 16:57:46 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/18 17:58:12 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			ft_timecmp(t_file *a, t_file *b);
 int			ft_dircmp(t_file *a, t_file *b);
 int			ft_revdircmp(t_file *a, t_file *b);
 int			ft_revtimecmp(t_file *a, t_file *b);
+int			ft_argcmp(char *a, char *b);
 int			ft_is_dir(char *str);
 
 /*
