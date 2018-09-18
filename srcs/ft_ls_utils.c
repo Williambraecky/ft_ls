@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_time.c                                       :+:      :+:    :+:   */
+/*   ft_ls_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/17 14:56:02 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 17:04:24 by wbraeckm         ###   ########.fr       */
+/*   Created: 2018/09/18 16:42:03 by wbraeckm          #+#    #+#             */
+/*   Updated: 2018/09/18 16:44:13 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	*ft_extract_time(time_t compared)
+int		ft_is_dir(char *str)
 {
-	time_t	now;
-	char	*str;
-	char	*timestr;
+	t_stat stat;
 
-	now = time(NULL);
-	timestr = ctime(&compared);
-	if (compared > now || compared < now - (6 * 30 * 24 * 3600))
-	{
-		timestr[10] = '\0';
-		timestr[7] = '\0';
-		timestr[24] = '\0';
-		str = ft_strformat("%s %s  %s", timestr + 4, timestr + 8, timestr + 20);
-	}
-	else
-	{
-		timestr[16] = '\0';
-		str = ft_strformat("%s", timestr + 4);
-	}
-	return (str);
+	lstat(str, &stat);
+	return (S_ISDIR(stat.st_mode));
 }
