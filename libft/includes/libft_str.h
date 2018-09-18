@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/14 11:04:28 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/14 14:17:46 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/18 17:54:48 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ char	*ft_strtolower(char *str);
 int		ft_strstartswith(const char *str, const char *find);
 char	*ft_strshift(char *str, int shift);
 char	*ft_strformat(const char *format, ...);
+void	ft_strsort(char **tab, size_t len, int (*cmp)());
 
 #endif

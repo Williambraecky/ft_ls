@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/14 11:02:14 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/14 11:02:49 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/18 17:52:48 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 void		*ft_memalloc(size_t t);
 void		ft_memdel(void **ap);
+void		ft_memswap(void *a, void *b, size_t len);
 
 #endif
