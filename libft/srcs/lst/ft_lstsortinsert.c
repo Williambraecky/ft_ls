@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 12:38:03 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/17 14:27:10 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/19 12:29:42 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	ft_lstsortinsert(t_list **begin_list, void *content, size_t size,
 		return ;
 	}
 	prev = current;
-	current = current->next;
-	while (current != NULL)
+	while ((current = current->next) != NULL)
 	{
 		if (cmp(current->content, content) > 0)
 		{
@@ -38,7 +37,6 @@ void	ft_lstsortinsert(t_list **begin_list, void *content, size_t size,
 			return ;
 		}
 		prev = current;
-		current = current->next;
 	}
 	prev->next = insert;
 }

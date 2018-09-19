@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 16:59:20 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/19 12:36:43 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_reset_lsdir(t_lsdir *dir)
 	dir->n_len = 0;
 	dir->b_total = 0;
 	dir->list = NULL;
+	dir->mj_len = 0;
+	dir->mi_len = 0;
 }
 
 void	ft_dir_calc_max(t_lsdir *dir, t_file *file)
@@ -55,9 +57,17 @@ void	ft_dir_calc_max(t_lsdir *dir, t_file *file)
 	dir->b_total += file->stat.st_blocks;
 	dir->u_len = ft_max(dir->u_len, ft_strlen(file->pwd.pw_name));
 	dir->g_len = ft_max(dir->g_len, ft_strlen(file->grp.gr_name));
-	dir->s_len = ft_max(dir->s_len, ft_intlen(file->stat.st_size) + 1);
+	dir->s_len = ft_max(dir->s_len,
+			ft_intlen(file->stat.st_size) + dir->mi_len + dir->mj_len);
 	dir->l_len = ft_max(dir->l_len, ft_intlen(file->stat.st_nlink) + 1);
 	dir->n_len = ft_max(dir->n_len, ft_strlen(file->dirent.d_name) + 1);
+	if (S_ISBLK(file->stat.st_mode) || S_ISCHR(file->stat.st_mode))
+	{
+		dir->mj_len = ft_max(dir->mj_len,
+				ft_intlen(major(file->stat.st_rdev)) + 1);
+		dir->mi_len = ft_max(dir->mi_len,
+				ft_intlen(minor(file->stat.st_rdev)));
+	}
 }
 
 /*
@@ -74,7 +84,7 @@ void	ft_readdir(t_ls *ls, const char *dir)
 
 	dirp = opendir(dir);
 	if (dirp == NULL)
-		return perror(ls->prog_name);
+		return (perror(ls->prog_name));
 	lsdir.ls = ls;
 	lsdir.path = ft_getpath(dir);
 	ft_reset_lsdir(&lsdir);

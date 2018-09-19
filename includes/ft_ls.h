@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 17:58:12 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/19 12:11:33 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define FT_LS_HIDDEN (1 << 2)
 # define FT_LS_REVERSE (1 << 3)
 # define FT_LS_TIME (1 << 4)
+# define MINORBITS 20
+# define MINORMASK ((1U << MINORBITS) - 1)
+# define MAJOR(dev) ((unsigned int) ((dev) >> MINORBITS))
+# define MINOR(dev) ((unsigned int) ((dev) & MINORMASK))
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
@@ -61,6 +65,8 @@ struct		s_file
 ** g_len = group len
 ** s_len = size len
 ** n_len = name len;
+** mj_len = major len;
+** mi_len = minor len;
 */
 
 typedef struct s_lsdir	t_lsdir;
@@ -75,6 +81,8 @@ struct		s_lsdir
 	int		s_len;
 	int		l_len;
 	int		n_len;
+	int		mj_len;
+	int		mi_len;
 };
 
 /*
@@ -92,7 +100,7 @@ int			ft_is_option_format(const char *str);
 ** Utils func
 */
 
-char		*ft_permstr(t_stat stat);
+char		*ft_permstr(t_file *file);
 char		*ft_extract_time(time_t compared);
 void		ft_exit_error(char *str);
 void		ft_exit_usage(t_ls *ls, char c);

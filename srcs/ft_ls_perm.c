@@ -6,13 +6,13 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 14:15:03 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 12:05:13 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/19 12:31:26 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	ft_permgetspecial(mode_t value)
+char		ft_permgetspecial(mode_t value)
 {
 	value &= S_IFMT;
 	if (value == S_IFIFO)
@@ -30,25 +30,66 @@ char	ft_permgetspecial(mode_t value)
 	return ('-');
 }
 
-/*
-** TODO: Read attributes
-*/
-
-char	*ft_permstr(t_stat stat)
+static void	ft_usr_part(t_file *file, char str[12])
 {
-	char str[12];
+	t_stat stat;
 
-	str[11] = '\0';
-	str[0] = ft_permgetspecial(stat.st_mode);
+	stat = file->stat;
 	str[1] = stat.st_mode & S_IRUSR ? 'r' : '-';
 	str[2] = stat.st_mode & S_IWUSR ? 'w' : '-';
-	str[3] = stat.st_mode & S_IXUSR ? 'x' : '-';
+	if (stat.st_mode & S_ISUID && !(stat.st_mode & S_IXUSR))
+		str[3] = 'S';
+	else if (stat.st_mode & S_ISUID && stat.st_mode & S_IXUSR)
+		str[3] = 's';
+	else
+		str[3] = stat.st_mode & S_IXUSR ? 'x' : '-';
+}
+
+static void	ft_grp_part(t_file *file, char str[12])
+{
+	t_stat stat;
+
+	stat = file->stat;
 	str[4] = stat.st_mode & S_IRGRP ? 'r' : '-';
 	str[5] = stat.st_mode & S_IWGRP ? 'w' : '-';
-	str[6] = stat.st_mode & S_IXGRP ? 'x' : '-';
+	if (stat.st_mode & S_ISGID && !(stat.st_mode & S_IXGRP))
+		str[6] = 'S';
+	else if (stat.st_mode & S_ISGID && stat.st_mode & S_IXGRP)
+		str[6] = 's';
+	else
+		str[6] = stat.st_mode & S_IXGRP ? 'x' : '-';
+}
+
+static void	ft_oth_part(t_file *file, char str[12])
+{
+	t_stat stat;
+
+	stat = file->stat;
 	str[7] = stat.st_mode & S_IROTH ? 'r' : '-';
 	str[8] = stat.st_mode & S_IWOTH ? 'w' : '-';
-	str[9] = stat.st_mode & S_IXOTH ? 'x' : '-';
-	str[10] = ' ';
+	if (stat.st_mode & S_ISVTX && !(stat.st_mode & S_IXOTH))
+		str[9] = 'T';
+	else if (stat.st_mode & S_ISVTX && stat.st_mode & S_IXOTH)
+		str[9] = 't';
+	else
+		str[9] = stat.st_mode & S_IXOTH ? 'x' : '-';
+}
+
+char		*ft_permstr(t_file *file)
+{
+	t_stat	stat;
+	char	str[12];
+	char	buff[256];
+
+	stat = file->stat;
+	str[11] = '\0';
+	str[0] = ft_permgetspecial(stat.st_mode);
+	ft_usr_part(file, str);
+	ft_grp_part(file, str);
+	ft_oth_part(file, str);
+	if (listxattr(file->fullpath, buff, 256, XATTR_SHOWCOMPRESSION) > 0)
+		str[10] = '@';
+	else
+		str[10] = ' ';
 	return (ft_strdup(str));
 }

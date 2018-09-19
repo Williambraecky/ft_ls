@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:51 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 17:58:15 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/19 12:31:11 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	main(int argc, const char *argv[])
 	while (i < argc)
 		ft_readdir(ls, argv[i++]);
 	free(ls);
-	return 0;
+	return (0);
 }
