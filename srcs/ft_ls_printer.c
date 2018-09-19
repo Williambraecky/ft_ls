@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 16:09:00 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/19 12:25:31 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/19 13:20:52 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_dir_long(t_file *file, t_lsdir dir)
 {
-	char	buffer[256];
+	char	buffer[1023];
 	char	*perm;
 	char	*time;
 
@@ -26,10 +26,10 @@ void	ft_print_dir_long(t_file *file, t_lsdir dir)
 		ft_printf(" %*d, %*d ", dir.mj_len, major(file->stat.st_rdev),
 				dir.mi_len, minor(file->stat.st_rdev));
 	else
-		ft_printf(" %*lld ", dir.s_len, file->stat.st_size);
+		ft_printf(" %*lld ", dir.s_len + (dir.mi_len != 0), file->stat.st_size);
 	ft_printf("%s %s", time, file->dirent.d_name);
 	if ((file->stat.st_mode & S_IFMT) == S_IFLNK)
-		ft_printf(" -> %.*s", readlink(file->fullpath, buffer, 256), buffer);
+		ft_printf(" -> %.*s", readlink(file->fullpath, buffer, 1023), buffer);
 	ft_printf("\n");
 	free(perm);
 	free(time);
