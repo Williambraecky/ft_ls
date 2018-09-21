@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 15:37:53 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 18:23:49 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_iterate_dir(t_lsdir dir)
 	t_list	*list;
 
 	list = dir.list;
-	if (dir.ls->print == ft_print_dir_long && ft_lstlen(list) > 0)
+	if (dir.ls->print == ft_print_dir_long && ft_lstlen(list) > 0
+			&& ft_strlen(dir.path) != 0)
 		ft_printf("total %d\n", dir.b_total);
 	while (list != NULL)
 	{

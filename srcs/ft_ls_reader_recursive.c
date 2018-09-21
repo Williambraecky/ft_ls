@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 15:21:22 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 15:39:14 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 17:55:06 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_post_iterate_dir(t_lsdir dir)
 	{
 		str = ((t_file *)(list->content))->name;
 		if (dir.ls->options & FT_LS_RECURSIVE
-				&& ft_is_dir(((t_file *)(list->content))->fullpath)
+				&& S_ISDIR(((t_file *)(list->content))->stat.st_mode)
 				&& !ft_strequ(str, ".") && !ft_strequ(str, ".."))
 			ft_readdir(dir.ls, ((t_file *)list->content)->fullpath, 1);
 		tmp = list;

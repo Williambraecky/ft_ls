@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 15:23:07 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 18:21:16 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int			ft_is_dir(char *str);
 void		ft_del_file(void *content, size_t size);
 char		*ft_get_pwd_name(uid_t uid);
 char		*ft_get_grp_name(gid_t git);
+void		ft_reset_lsdir(t_lsdir *dir);
+void		ft_dir_calc_max(t_lsdir *dir, t_file *file);
 
 /*
 ** Reading func
@@ -124,6 +126,8 @@ void		ft_readdir(t_ls *ls, const char *dir, int printdir);
 void		ft_print_dir(t_file *file, t_lsdir dir);
 void		ft_print_dir_long(t_file *file, t_lsdir dir);
 void		ft_print_dir_name(t_ls *ls, char *str, int printdir);
+void		ft_iterate_dir(t_lsdir dir);
 void		ft_post_iterate_dir(t_lsdir dir);
+int			ft_handle_params(int start, int argc, const char *argv[], t_ls *ls);
 
 #endif
