@@ -6,7 +6,7 @@
 #    By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/17 11:30:33 by wbraeckm          #+#    #+#              #
-#    Updated: 2018/09/21 13:27:59 by wbraeckm         ###   ########.fr        #
+#    Updated: 2018/09/21 19:17:35 by wbraeckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ ccgreen = "\033[0;92m"
 ccmagenta = "\033[0;96m"
 ccreset = "\033[0;0m"
 
-all: LIB $(NAME)
+all: $(NAME)
 
 $(OBJFOLDER)/%.o:$(SRCSFOLDER)/%.c
 	@printf $(ccgreen)
@@ -42,9 +42,9 @@ $(OBJSUBS):
 	@mkdir $@
 
 LIB:
-	@make -C $(LIBFTFOLDER)
+	@make -C $(LIBFTFOLDER) || false
 
-$(NAME): $(OBJSUBS) $(OBJ)
+$(NAME): LIB $(OBJSUBS) $(OBJ)
 	@printf $(ccmagenta)
 	gcc -o $(NAME) $(FLAGS) $(LIBFT) $(OBJ)
 	@printf $(ccreset)

@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 18:23:49 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 18:57:10 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_iterate_dir(t_lsdir dir)
 		dir.ls->print(list->content, dir);
 		list = list->next;
 	}
-	if (dir.ls->print == ft_print_dir)
+	if (dir.ls->print == ft_print_dir && !(dir.ls->options & FT_LS_LINE))
 		ft_printf("\n");
 	ft_post_iterate_dir(dir);
 }

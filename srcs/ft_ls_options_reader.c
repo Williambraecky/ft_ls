@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:19:12 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 13:15:00 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 18:55:34 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	g_optionchar[] =
 	'r',
 	'R',
 	't',
+	'1',
 	'\0'
 };
 
@@ -28,7 +29,8 @@ static long	g_flags[] =
 	FT_LS_HIDDEN,
 	FT_LS_REVERSE,
 	FT_LS_RECURSIVE,
-	FT_LS_TIME
+	FT_LS_TIME,
+	FT_LS_LINE
 };
 
 int		ft_is_option_format(const char *str)

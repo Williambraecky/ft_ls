@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 18:21:16 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 18:54:45 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 # include <errno.h>
 # include "libft.h"
 
-# define FT_LS_USAGE "usage: ./ft_ls [-Ralrt] [file ...]"
+# define FT_LS_USAGE "usage: ./ft_ls [-Ralrt1] [file ...]"
 # define FT_LS_LONG (1 << 0)
 # define FT_LS_RECURSIVE (1 << 1)
 # define FT_LS_HIDDEN (1 << 2)
 # define FT_LS_REVERSE (1 << 3)
 # define FT_LS_TIME (1 << 4)
+# define FT_LS_LINE (1 << 5)
 # define MINORBITS 20
 # define MINORMASK ((1U << MINORBITS) - 1)
 # define MAJOR(dev) ((unsigned int) ((dev) >> MINORBITS))
