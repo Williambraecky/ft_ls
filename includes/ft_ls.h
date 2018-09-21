@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 13:14:43 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 15:23:07 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ void		ft_readdir(t_ls *ls, const char *dir, int printdir);
 void		ft_print_dir(t_file *file, t_lsdir dir);
 void		ft_print_dir_long(t_file *file, t_lsdir dir);
 void		ft_print_dir_name(t_ls *ls, char *str, int printdir);
+void		ft_post_iterate_dir(t_lsdir dir);
 
 #endif

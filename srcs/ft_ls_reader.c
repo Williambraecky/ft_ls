@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 13:35:27 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 15:37:53 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*ft_getpath(const char *dir)
 void	ft_iterate_dir(t_lsdir dir)
 {
 	t_list	*list;
-	char	*str;
 
 	list = dir.list;
 	if (dir.ls->print == ft_print_dir_long && ft_lstlen(list) > 0)
@@ -38,17 +37,7 @@ void	ft_iterate_dir(t_lsdir dir)
 	}
 	if (dir.ls->print == ft_print_dir)
 		ft_printf("\n");
-	list = dir.list;
-	dir.ls->printed++;
-	while (list != NULL && dir.ls->options & FT_LS_RECURSIVE)
-	{
-		str = ((t_file *)(list->content))->name;
-		if (ft_is_dir(((t_file *)(list->content))->fullpath)
-				&& !ft_strequ(str, ".") && !ft_strequ(str, ".."))
-			ft_readdir(dir.ls, ((t_file *)list->content)->fullpath, 1);
-		list = list->next;
-	}
-	ft_lstdel(&(dir.list), ft_del_file);
+	ft_post_iterate_dir(dir);
 }
 
 void	ft_reset_lsdir(t_lsdir *dir)
