@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/14 10:57:15 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/17 12:41:23 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 11:23:38 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void		ft_lstpushback(t_list **alst, const void *content,
 t_list		*ft_lstlast(t_list **alst);
 void		ft_lstremoveif(t_list **alst, void *data_ref,
 		int (*cmp)());
-void	ft_lstsortinsert(t_list **begin_list, void *content, size_t size,
+void		ft_lstsortinsert(t_list **begin_list, void *content, size_t size,
 		int (*cmp)());
+size_t		ft_lstlen(t_list *list);
 
 #endif

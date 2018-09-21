@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:19:12 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 16:55:52 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 13:15:00 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ t_ls	*ft_read_options(int argc, const char *argv[])
 		ls->cmp = ft_dircmp;
 	ls->print = ls->options & FT_LS_LONG ? ft_print_dir_long : ft_print_dir;
 	ls->prog_name = (char *)argv[0];
+	ls->printed = 0;
 	return (ls);
 }

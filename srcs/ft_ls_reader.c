@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/19 12:49:41 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 13:35:27 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ char	*ft_getpath(const char *dir)
 
 void	ft_iterate_dir(t_lsdir dir)
 {
-	t_list *list;
+	t_list	*list;
+	char	*str;
 
 	list = dir.list;
-	if (dir.ls->print == ft_print_dir_long)
+	if (dir.ls->print == ft_print_dir_long && ft_lstlen(list) > 0)
 		ft_printf("total %d\n", dir.b_total);
 	while (list != NULL)
 	{
@@ -37,6 +38,17 @@ void	ft_iterate_dir(t_lsdir dir)
 	}
 	if (dir.ls->print == ft_print_dir)
 		ft_printf("\n");
+	list = dir.list;
+	dir.ls->printed++;
+	while (list != NULL && dir.ls->options & FT_LS_RECURSIVE)
+	{
+		str = ((t_file *)(list->content))->name;
+		if (ft_is_dir(((t_file *)(list->content))->fullpath)
+				&& !ft_strequ(str, ".") && !ft_strequ(str, ".."))
+			ft_readdir(dir.ls, ((t_file *)list->content)->fullpath, 1);
+		list = list->next;
+	}
+	ft_lstdel(&(dir.list), ft_del_file);
 }
 
 void	ft_reset_lsdir(t_lsdir *dir)
@@ -55,12 +67,12 @@ void	ft_reset_lsdir(t_lsdir *dir)
 void	ft_dir_calc_max(t_lsdir *dir, t_file *file)
 {
 	dir->b_total += file->stat.st_blocks;
-	dir->u_len = ft_max(dir->u_len, ft_strlen(file->pwd.pw_name));
-	dir->g_len = ft_max(dir->g_len, ft_strlen(file->grp.gr_name));
+	dir->u_len = ft_max(dir->u_len, ft_strlen(file->pwd));
+	dir->g_len = ft_max(dir->g_len, ft_strlen(file->grp));
 	dir->s_len = ft_max(dir->s_len,
 			ft_intlen(file->stat.st_size) + dir->mi_len + dir->mj_len);
 	dir->l_len = ft_max(dir->l_len, ft_intlen(file->stat.st_nlink) + 1);
-	dir->n_len = ft_max(dir->n_len, ft_strlen(file->dirent.d_name) + 1);
+	dir->n_len = ft_max(dir->n_len, ft_strlen(file->name) + 1);
 	if (S_ISBLK(file->stat.st_mode) || S_ISCHR(file->stat.st_mode))
 	{
 		dir->mj_len = ft_max(dir->mj_len,
@@ -70,33 +82,28 @@ void	ft_dir_calc_max(t_lsdir *dir, t_file *file)
 	}
 }
 
-/*
-** TODO: Better iteration taking account of flags; predefine comparator for
-** good sorting
-*/
-
-void	ft_readdir(t_ls *ls, const char *dir)
+void	ft_readdir(t_ls *ls, const char *dir, int printdir)
 {
 	DIR		*dirp;
 	t_dir	*dp;
 	t_lsdir	lsdir;
 	t_file	lsfile;
 
-	dirp = opendir(dir);
-	if (dirp == NULL)
-		return (perror(ls->prog_name));
+	ft_print_dir_name(ls, (char *)dir, printdir);
+	if ((dirp = opendir(dir)) == NULL)
+		return (ft_ls_perror((char *)dir));
+	ft_reset_lsdir(&lsdir);
 	lsdir.ls = ls;
 	lsdir.path = ft_getpath(dir);
-	ft_reset_lsdir(&lsdir);
 	while ((dp = readdir(dirp)) != NULL)
 	{
 		if (dp->d_name[0] == '.' && !(ls->options & FT_LS_HIDDEN))
 			continue ;
-		lsfile.dirent = *dp;
+		lsfile.name = ft_strdup(dp->d_name);
 		lsfile.fullpath = ft_strjoin(lsdir.path, dp->d_name);
 		lstat(lsfile.fullpath, &(lsfile.stat));
-		lsfile.pwd = *(getpwuid(lsfile.stat.st_uid));
-		lsfile.grp = *(getgrgid(lsfile.stat.st_gid));
+		lsfile.pwd = ft_get_pwd_name(lsfile.stat.st_uid);
+		lsfile.grp = ft_get_grp_name(lsfile.stat.st_gid);
 		ft_dir_calc_max(&lsdir, &lsfile);
 		ft_lstsortinsert(&(lsdir.list), &lsfile, sizeof(lsfile), ls->cmp);
 	}

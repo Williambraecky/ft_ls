@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/19 12:11:33 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 13:14:43 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ struct		s_ls
 {
 	size_t	options;
 	char	*prog_name;
+	int		printed;
 	int		(*cmp)();
 	void	(*print)();
 };
@@ -53,10 +54,10 @@ typedef struct s_file	t_file;
 struct		s_file
 {
 	char	*fullpath;
-	t_dir	dirent;
+	char	*name;
 	t_stat	stat;
-	t_pwd	pwd;
-	t_grp	grp;
+	char	*pwd;
+	char	*grp;
 };
 
 /*
@@ -104,19 +105,24 @@ char		*ft_permstr(t_file *file);
 char		*ft_extract_time(time_t compared);
 void		ft_exit_error(char *str);
 void		ft_exit_usage(t_ls *ls, char c);
+void		ft_ls_perror(char *file);
 int			ft_timecmp(t_file *a, t_file *b);
 int			ft_dircmp(t_file *a, t_file *b);
 int			ft_revdircmp(t_file *a, t_file *b);
 int			ft_revtimecmp(t_file *a, t_file *b);
 int			ft_argcmp(char *a, char *b);
 int			ft_is_dir(char *str);
+void		ft_del_file(void *content, size_t size);
+char		*ft_get_pwd_name(uid_t uid);
+char		*ft_get_grp_name(gid_t git);
 
 /*
 ** Reading func
 */
 
-void		ft_readdir(t_ls *ls, const char *dir);
+void		ft_readdir(t_ls *ls, const char *dir, int printdir);
 void		ft_print_dir(t_file *file, t_lsdir dir);
 void		ft_print_dir_long(t_file *file, t_lsdir dir);
+void		ft_print_dir_name(t_ls *ls, char *str, int printdir);
 
 #endif

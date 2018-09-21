@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:21:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/18 12:53:56 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/21 13:14:56 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	ft_exit_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putchar_fd('\n', 2);
 	exit(0);
+}
+
+void	ft_ls_perror(char *filename)
+{
+	ft_printf_fd(2, "ls: %s: %s\n", filename, strerror(errno));
 }
 
 void	ft_exit_usage(t_ls *ls, char c)
