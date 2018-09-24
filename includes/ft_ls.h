@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 18:54:45 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 11:40:26 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_ls		t_ls;
 struct		s_ls
 {
 	size_t	options;
-	char	*prog_name;
 	int		printed;
 	int		(*cmp)();
 	void	(*print)();

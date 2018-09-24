@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 18:57:10 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 11:54:15 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,26 @@ void	ft_iterate_dir(t_lsdir dir)
 	ft_post_iterate_dir(dir);
 }
 
-void	ft_reset_lsdir(t_lsdir *dir)
+void	ft_post_iterate_dir(t_lsdir dir)
 {
-	dir->u_len = 0;
-	dir->g_len = 0;
-	dir->s_len = 0;
-	dir->l_len = 0;
-	dir->n_len = 0;
-	dir->b_total = 0;
-	dir->list = NULL;
-	dir->mj_len = 0;
-	dir->mi_len = 0;
+	t_list	*list;
+	t_list	*tmp;
+	char	*str;
+
+	list = dir.list;
+	dir.ls->printed++;
+	while (list != NULL)
+	{
+		str = ((t_file *)(list->content))->name;
+		if (dir.ls->options & FT_LS_RECURSIVE
+				&& S_ISDIR(((t_file *)(list->content))->stat.st_mode)
+				&& !ft_strequ(str, ".") && !ft_strequ(str, ".."))
+			ft_readdir(dir.ls, ((t_file *)list->content)->fullpath, 1);
+		tmp = list;
+		list = list->next;
+		ft_lstdelone(&tmp, ft_del_file);
+	}
+	free(dir.path);
 }
 
 void	ft_dir_calc_max(t_lsdir *dir, t_file *file)
@@ -82,7 +91,7 @@ void	ft_readdir(t_ls *ls, const char *dir, int printdir)
 	ft_print_dir_name(ls, (char *)dir, printdir);
 	if ((dirp = opendir(dir)) == NULL)
 		return (ft_ls_perror((char *)dir));
-	ft_reset_lsdir(&lsdir);
+	ft_bzero(&lsdir, sizeof(lsdir));
 	lsdir.ls = ls;
 	lsdir.path = ft_getpath(dir);
 	while ((dp = readdir(dirp)) != NULL)

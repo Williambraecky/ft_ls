@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:19:12 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 18:55:34 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 11:45:30 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_read_optionstr(t_ls *ls, const char *str)
 		while (g_optionchar[i])
 		{
 			if (g_optionchar[i] == *str)
-				ls->options |= g_flags[i];
+				ft_set_option(ls, g_flags[i]);
 			i++;
 		}
 		str++;
@@ -68,14 +68,14 @@ t_ls	*ft_read_options(int argc, const char *argv[])
 	i = 1;
 	while (i < argc && ft_is_option_format(argv[i]))
 		ft_read_optionstr(ls, argv[i++]);
-	if (ls->options & FT_LS_TIME)
-		ls->cmp = ls->options & FT_LS_REVERSE ? ft_revtimecmp : ft_timecmp;
-	else if (ls->options & FT_LS_REVERSE)
+	if (ft_has_option(ls, FT_LS_TIME))
+		ls->cmp = ft_has_option(ls, FT_LS_REVERSE) ? ft_revtimecmp : ft_timecmp;
+	else if (ft_has_option(ls, FT_LS_REVERSE))
 		ls->cmp = ft_revdircmp;
 	else
 		ls->cmp = ft_dircmp;
-	ls->print = ls->options & FT_LS_LONG ? ft_print_dir_long : ft_print_dir;
-	ls->prog_name = (char *)argv[0];
+	ls->print = ft_has_option(ls, FT_LS_LONG)
+		? ft_print_dir_long : ft_print_dir;
 	ls->printed = 0;
 	return (ls);
 }

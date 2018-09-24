@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 18:05:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 18:22:15 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 11:53:09 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int		ft_handle_params(int start, int argc, const char *argv[], t_ls *ls)
 	t_lsdir	lsdir;
 	t_file	lsfile;
 
-	ft_reset_lsdir(&lsdir);
+	ft_bzero(&lsdir, sizeof(lsdir));
 	lsdir.ls = ls;
 	lsdir.path = ft_strnew(0);
-	while (start < argc && !ft_is_dir((char *) argv[start]))
+	while (start < argc && !ft_is_dir((char *)argv[start]))
 	{
 		lsfile.name = ft_strdup(argv[start]);
 		lsfile.fullpath = ft_strdup(argv[start++]);
