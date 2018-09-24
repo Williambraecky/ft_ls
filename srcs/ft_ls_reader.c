@@ -6,18 +6,17 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 12:31:22 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 13:46:08 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	*ft_getpath(const char *dir)
+char	*ft_getdirname(const char *dir)
 {
-	char	*str;
-
-	str = ft_strjoin(dir, "/");
-	return (str);
+	if (ft_strrchr(dir, '/') != NULL)
+		return (ft_strrchr(dir, '/') + 1);
+	return ((char *)dir);
 }
 
 void	ft_iterate_dir(t_lsdir dir)
@@ -87,10 +86,10 @@ void	ft_readdir(t_ls *ls, const char *dir, int printdir)
 
 	ft_print_dir_name(ls, (char *)dir, printdir);
 	if ((dirp = opendir(dir)) == NULL)
-		return (ft_ls_perror((char *)dir));
+		return (ft_ls_perror(ft_getdirname(dir)));
 	ft_bzero(&lsdir, sizeof(lsdir));
 	lsdir.ls = ls;
-	lsdir.path = ft_getpath(dir);
+	lsdir.path = ft_strjoin(dir, "/");
 	while ((dp = readdir(dirp)) != NULL)
 	{
 		if (dp->d_name[0] == '.' && !(ls->options & FT_LS_HIDDEN))

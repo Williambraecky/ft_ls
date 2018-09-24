@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 14:15:03 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:45:27 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 13:37:24 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ char		*ft_permstr(t_file *file)
 {
 	t_stat	stat;
 	char	str[12];
-	char	buff[256];
 
 	stat = file->stat;
 	str[11] = '\0';
@@ -87,7 +86,7 @@ char		*ft_permstr(t_file *file)
 	ft_usr_part(file, str);
 	ft_grp_part(file, str);
 	ft_oth_part(file, str);
-	if (listxattr(file->fullpath, buff, 256, XATTR_SHOWCOMPRESSION) > 0)
+	if (listxattr(file->fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
 		str[10] = '@';
 	else
 		str[10] = ' ';

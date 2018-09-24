@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 18:05:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:53:09 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 13:07:01 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		ft_handle_params(int start, int argc, const char *argv[], t_ls *ls)
 		if (lstat(lsfile.fullpath, &(lsfile.stat)) == -1)
 		{
 			ft_ls_perror(lsfile.name);
+			ls->errors++;
 			continue ;
 		}
 		lsfile.pwd = ft_get_pwd_name(lsfile.stat.st_uid);

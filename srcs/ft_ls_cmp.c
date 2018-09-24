@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:32:37 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/21 13:14:52 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 13:19:04 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int		ft_revtimecmp(t_file *a, t_file *b)
 
 int		ft_argcmp(char *a, char *b)
 {
+	int		a_exists;
+	int		b_exists;
+	t_stat	stat;
+
+	a_exists = lstat(a, &stat) != -1;
+	b_exists = lstat(b, &stat) != -1;
+	if (!a_exists && b_exists)
+		return (-1);
+	else if (!b_exists && a_exists)
+		return (1);
 	if (ft_is_dir(a) && !ft_is_dir(b))
 		return (1);
 	else if (!ft_is_dir(a) && ft_is_dir(b))

@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:21:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 12:35:01 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 13:25:28 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,15 @@ void	ft_ls_perror(char *filename)
 void	ft_exit_usage(t_ls *ls, char c)
 {
 	ft_printf_fd(2, "ls: illegal option -- %c\n", c);
-	ft_printf_fd(2, "%s\n", FT_LS_USAGE);
+	ft_printf_fd(2, "%s\n", "usage: ls [-ABCFGHLOPRSTUWabcdef\
+ghiklmnopqrstuwx1] [file ...]");
+	free(ls);
+	exit(1);
+}
+
+void	ft_fts_open_error(t_ls *ls)
+{
+	ft_printf_fd(2, "ls: fts_open: No such file or directory\n");
 	free(ls);
 	exit(1);
 }

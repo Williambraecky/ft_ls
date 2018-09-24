@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:40:26 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 13:25:21 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <errno.h>
 # include "libft.h"
 
-# define FT_LS_USAGE "usage: ./ft_ls [-Ralrt1] [file ...]"
 # define FT_LS_LONG (1 << 0)
 # define FT_LS_RECURSIVE (1 << 1)
 # define FT_LS_HIDDEN (1 << 2)
@@ -46,6 +45,7 @@ struct		s_ls
 {
 	size_t	options;
 	int		printed;
+	int		errors;
 	int		(*cmp)();
 	void	(*print)();
 };
@@ -106,6 +106,7 @@ char		*ft_extract_time(time_t compared);
 void		ft_exit_error(char *str);
 void		ft_exit_usage(t_ls *ls, char c);
 void		ft_ls_perror(char *file);
+void		ft_fts_open_error(t_ls *ls);
 int			ft_timecmp(t_file *a, t_file *b);
 int			ft_dircmp(t_file *a, t_file *b);
 int			ft_revdircmp(t_file *a, t_file *b);
