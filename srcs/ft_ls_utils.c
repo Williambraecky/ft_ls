@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 16:42:03 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:45:19 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 12:30:36 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ int			ft_is_dir(char *str)
 
 void		ft_print_dir_name(t_ls *ls, char *str, int printdir)
 {
-	int prec;
-
 	if (!printdir)
 		return ;
 	if (ls->printed++)
 		ft_printf("\n");
-	prec = str[ft_strlen(str) - 1] == '/' ? ft_strlen(str) - 1 : ft_strlen(str);
-	ft_printf("%.*s:\n", prec, str);
+	ft_printf("%s:\n", str);
 }
 
 void		ft_del_file(void *content, size_t size)

@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:19:12 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:45:30 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 12:36:00 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,21 @@ static long	g_flags[] =
 	FT_LS_REVERSE,
 	FT_LS_RECURSIVE,
 	FT_LS_TIME,
-	FT_LS_LINE
+	FT_LS_LINE,
 };
 
 int		ft_is_option_format(const char *str)
 {
-	return (str[0] == '-' && ft_strlen(str) > 1);
+	return ((str[0] == '-' && ft_strlen(str) > 1)
+			|| ft_strequ((char *)str, "--"));
 }
 
 void	ft_read_optionstr(t_ls *ls, const char *str)
 {
 	int i;
 
+	if (ft_strequ(str, "--"))
+		return ;
 	str++;
 	while (*str)
 	{
@@ -67,7 +70,11 @@ t_ls	*ft_read_options(int argc, const char *argv[])
 		ft_exit_error("Could not malloc");
 	i = 1;
 	while (i < argc && ft_is_option_format(argv[i]))
+	{
 		ft_read_optionstr(ls, argv[i++]);
+		if (ft_strequ(argv[i - 1], "--"))
+			break ;
+	}
 	if (ft_has_option(ls, FT_LS_TIME))
 		ls->cmp = ft_has_option(ls, FT_LS_REVERSE) ? ft_revtimecmp : ft_timecmp;
 	else if (ft_has_option(ls, FT_LS_REVERSE))

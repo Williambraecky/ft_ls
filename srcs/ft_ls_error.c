@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:21:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:23:28 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 12:35:01 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_ls_perror(char *filename)
 
 void	ft_exit_usage(t_ls *ls, char c)
 {
-	ft_printf_fd(2, "ft_ls: illegal option -- %c\n", c);
+	ft_printf_fd(2, "ls: illegal option -- %c\n", c);
 	ft_printf_fd(2, "%s\n", FT_LS_USAGE);
 	free(ls);
 	exit(1);

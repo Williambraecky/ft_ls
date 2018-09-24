@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:54:15 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 12:31:22 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ char	*ft_getpath(const char *dir)
 {
 	char	*str;
 
-	if (*(dir + ft_strlen(dir) - 1) == '/')
-		str = ft_strdup(dir);
-	else
-		str = ft_strjoin(dir, "/");
+	str = ft_strjoin(dir, "/");
 	return (str);
 }
 

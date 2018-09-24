@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:51 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:47:30 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/09/24 12:24:00 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int		main(int argc, const char *argv[])
 	g_ls = ft_read_options(argc, argv);
 	i = 1;
 	while (i < argc && ft_is_option_format(argv[i]))
+	{
 		i++;
+		if (ft_strequ(argv[i - 1], "--"))
+			break ;
+	}
 	ft_strsort((char **)argv + i, argc - i, ft_argcmp);
 	after = ft_handle_params(i, argc, argv, g_ls);
 	if (after == i && after == argc)
