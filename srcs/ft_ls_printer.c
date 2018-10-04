@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 16:09:00 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 11:42:52 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/10/04 19:14:54 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_print_dir_long(t_file *file, t_lsdir dir)
 void	ft_print_dir(t_file *file, t_lsdir dir)
 {
 	if (ft_has_option(dir.ls, FT_LS_LINE))
-		ft_printf("%s\n", file->name);
+		ft_putendl(file->name);
 	else
 		ft_printf("%-*s", dir.n_len, file->name);
 }
