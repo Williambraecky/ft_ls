@@ -6,7 +6,7 @@
 #    By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/17 11:30:33 by wbraeckm          #+#    #+#              #
-#    Updated: 2018/09/21 19:17:35 by wbraeckm         ###   ########.fr        #
+#    Updated: 2018/10/06 16:53:09 by wbraeckm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,10 @@ $(OBJFOLDER)/%.o:$(SRCSFOLDER)/%.c
 $(OBJSUBS):
 	@mkdir $@
 
-LIB:
-	@make -C $(LIBFTFOLDER) || false
+$(LIBFT):
+	@make -C $(LIBFTFOLDER)
 
-$(NAME): LIB $(OBJSUBS) $(OBJ)
+$(NAME): $(LIBFT) $(OBJSUBS) $(OBJ)
 	@printf $(ccmagenta)
 	gcc -o $(NAME) $(FLAGS) $(LIBFT) $(OBJ)
 	@printf $(ccreset)

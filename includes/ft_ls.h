@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 11:43:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 13:25:21 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/10/06 16:24:06 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int			ft_revtimecmp(t_file *a, t_file *b);
 int			ft_argcmp(char *a, char *b);
 int			ft_is_dir(char *str);
 void		ft_del_file(void *content, size_t size);
-char		*ft_get_pwd_name(uid_t uid);
-char		*ft_get_grp_name(gid_t git);
+char		*ft_get_pwd_name(uid_t uid, t_ls *ls);
+char		*ft_get_grp_name(gid_t git, t_ls *ls);
 void		ft_reset_lsdir(t_lsdir *dir);
 void		ft_dir_calc_max(t_lsdir *dir, t_file *file);
 

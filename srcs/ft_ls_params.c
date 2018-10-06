@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/21 18:05:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 13:07:01 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/10/06 16:30:36 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int		ft_handle_params(int start, int argc, const char *argv[], t_ls *ls)
 			ls->errors++;
 			continue ;
 		}
-		lsfile.pwd = ft_get_pwd_name(lsfile.stat.st_uid);
-		lsfile.grp = ft_get_grp_name(lsfile.stat.st_gid);
+		lsfile.pwd = ft_get_pwd_name(lsfile.stat.st_uid, ls);
+		lsfile.grp = ft_get_grp_name(lsfile.stat.st_gid, ls);
 		ft_dir_calc_max(&lsdir, &lsfile);
 		ft_lstsortinsert(&(lsdir.list), &lsfile, sizeof(lsfile), ls->cmp);
 	}

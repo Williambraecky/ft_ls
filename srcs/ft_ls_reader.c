@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 14:37:47 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 13:46:08 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/10/06 16:24:38 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,15 @@ void	ft_post_iterate_dir(t_lsdir dir)
 
 void	ft_dir_calc_max(t_lsdir *dir, t_file *file)
 {
+	dir->n_len = ft_max(dir->n_len, ft_strlen(file->name) + 1);
+	if (!ft_has_option(dir->ls, FT_LS_LONG))
+		return ;
 	dir->b_total += file->stat.st_blocks;
 	dir->u_len = ft_max(dir->u_len, ft_strlen(file->pwd));
 	dir->g_len = ft_max(dir->g_len, ft_strlen(file->grp));
 	dir->s_len = ft_max(dir->s_len,
 			ft_intlen(file->stat.st_size) + dir->mi_len + dir->mj_len);
 	dir->l_len = ft_max(dir->l_len, ft_intlen(file->stat.st_nlink) + 1);
-	dir->n_len = ft_max(dir->n_len, ft_strlen(file->name) + 1);
 	if (S_ISBLK(file->stat.st_mode) || S_ISCHR(file->stat.st_mode))
 	{
 		dir->mj_len = ft_max(dir->mj_len,
@@ -97,8 +99,8 @@ void	ft_readdir(t_ls *ls, const char *dir, int printdir)
 		lsfile.name = ft_strdup(dp->d_name);
 		lsfile.fullpath = ft_strjoin(lsdir.path, dp->d_name);
 		lstat(lsfile.fullpath, &(lsfile.stat));
-		lsfile.pwd = ft_get_pwd_name(lsfile.stat.st_uid);
-		lsfile.grp = ft_get_grp_name(lsfile.stat.st_gid);
+		lsfile.pwd = ft_get_pwd_name(lsfile.stat.st_uid, ls);
+		lsfile.grp = ft_get_grp_name(lsfile.stat.st_gid, ls);
 		ft_dir_calc_max(&lsdir, &lsfile);
 		ft_lstsortinsert(&(lsdir.list), &lsfile, sizeof(lsfile), ls->cmp);
 	}

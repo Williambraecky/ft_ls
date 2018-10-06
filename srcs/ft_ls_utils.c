@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 16:42:03 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 13:11:38 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/10/06 16:25:10 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,24 @@ void		ft_del_file(void *content, size_t size)
 	free(file);
 }
 
-char		*ft_get_pwd_name(uid_t st_uid)
+char		*ft_get_pwd_name(uid_t st_uid, t_ls *ls)
 {
 	t_pwd	*pwd;
 
+	if (!ft_has_option(ls, FT_LS_LONG))
+		return (NULL);
 	pwd = getpwuid(st_uid);
 	if (pwd != NULL)
 		return (ft_strdup(pwd->pw_name));
 	return (ft_itoa(st_uid));
 }
 
-char		*ft_get_grp_name(gid_t st_gid)
+char		*ft_get_grp_name(gid_t st_gid, t_ls *ls)
 {
 	t_grp	*grp;
 
+	if (!ft_has_option(ls, FT_LS_LONG))
+		return (NULL);
 	grp = getgrgid(st_gid);
 	if (grp != NULL)
 		return (ft_strdup(grp->gr_name));

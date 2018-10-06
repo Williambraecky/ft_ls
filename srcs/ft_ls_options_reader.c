@@ -6,7 +6,7 @@
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 12:19:12 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/09/24 13:24:40 by wbraeckm         ###   ########.fr       */
+/*   Updated: 2018/10/06 16:47:57 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ t_ls	*ft_read_options(int argc, const char *argv[])
 		if (ft_strequ(argv[i - 1], "--"))
 			break ;
 	}
+	if (!isatty(1))
+		ft_set_option(ls, FT_LS_LINE);
 	if (ft_has_option(ls, FT_LS_TIME))
 		ls->cmp = ft_has_option(ls, FT_LS_REVERSE) ? ft_revtimecmp : ft_timecmp;
 	else if (ft_has_option(ls, FT_LS_REVERSE))
