@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wbraeckm <wbraeckm@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/21 18:05:21 by wbraeckm          #+#    #+#             */
-/*   Updated: 2018/10/06 16:30:36 by wbraeckm         ###   ########.fr       */
+/*   Created: 2018/10/09 22:46:12 by wbraeckm          #+#    #+#             */
+/*   Updated: 2018/10/09 22:46:34 by wbraeckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "ft_ls.h"
 
@@ -37,5 +39,7 @@ int		ft_handle_params(int start, int argc, const char *argv[], t_ls *ls)
 	}
 	if (lsdir.list != NULL)
 		ft_iterate_dir(lsdir);
+	else
+		free(lsdir.path);
 	return (start);
 }
